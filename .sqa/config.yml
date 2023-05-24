@@ -1,0 +1,60 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.11
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/agroportal/fairness:
+      branch: master
+      repo: https://github.com/agroportal/fairness
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/agroportal/fairness git:
+        commands:
+        - /usr/bin/env sh .sqa/script.fuzzy-chestnut-oriole.sh
+        container: qc.acc_scaly-vermilion-dolphin
+  QC.Doc:
+    repos:
+      github.com/agroportal/fairness find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.cloudy-teal-magpie.sh
+        container: qc.doc_messy-sangria-indri
+      github.com/agroportal/fairness git:
+        commands:
+        - /usr/bin/env sh .sqa/script.clammy-buff-bullfrog.sh
+        container: qc.doc_snippy-emerald-serval
+      github.com/agroportal/fairness markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.shabby-orchid-ostrich.sh
+        container: qc.doc_fuzzy-thistle-forest
+  QC.Lic:
+    repos:
+      github.com/agroportal/fairness licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.squeaky-denim-hamster.sh
+        container: qc.lic_tasty-beige-woodpecker
+  QC.Sty:
+    repos:
+      github.com/agroportal/fairness checkstyle:
+        commands:
+        - /usr/bin/env sh .sqa/script.skanky-asparagus-starfish.sh
+        container: qc.sty_slimy-carmine-termite
+      github.com/agroportal/fairness jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.chewy-apricot-goose.sh
+        container: qc.sty_tasty-cardinal-warthog
+      github.com/agroportal/fairness rubocop:
+        commands:
+        - /usr/bin/env sh .sqa/script.woozy-emerald-jaguar.sh
+        container: qc.sty_woolly-maroon-bombay
+  QC.Ver:
+    repos:
+      github.com/agroportal/fairness get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.skanky-amethyst-monkey.sh
+        container: qc.ver_frumpy-aquamarine-mammoth
+timeout: 5400
